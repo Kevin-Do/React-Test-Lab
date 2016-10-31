@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             <Text style={styles.getStartedText}>
-              hi how are you doing
+              hello brian
             </Text>
           </View>
 
