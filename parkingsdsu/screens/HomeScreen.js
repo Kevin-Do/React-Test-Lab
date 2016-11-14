@@ -37,7 +37,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.getStartedContainer}>
 
             <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
+              hi im salman
             </Text>
           </View>
 
@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
+            hello
           </Text>
 
         </View>
@@ -77,9 +77,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 200,
-    height: 34.5,
+    width: 412,
+    height: 122,
     marginTop: 3,
+    shadowColor: 'black',
+    // shadowOffset: {height: -3},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    // borderColor: #000000,
+    // borderRadius: 3,
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 30,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 23,
     textAlign: 'center',
@@ -104,7 +110,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: {height: -3},
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 10,
       },
       android: {
         elevation: 5,
