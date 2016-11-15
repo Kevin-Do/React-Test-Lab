@@ -1,36 +1,13 @@
 "use strict";
-const 
-    React = require("react"), 
-    ReactDOM =require("react-dom");
 
-let 
-    ItemList = React.createClass({
-
-        render: function(){
-            //this represents the component
-            // props refers to the passed in parameters
-            
-            let items = this.props.items.map(function(item){
-                return <li>{item}</li>
-            });
-
-            return <div>
-             <h1> {this.props.header} </h1>
-
-                <ul>
-                {items}
-                </ul>
-            
-            </div>
-            ;
-        }
-         
-    });
-
-let
-    items = [
-        "one", "two", "doot didily"
-    ];
-
-ReactDOM.render(<ItemList header='ItemList' items = {items}/>, 
-    document.querySelector("[class = 'container']"));
+const
+  React = require("react"),
+	ReactDOM = require("react-dom"),
+	ItemList = require("./components/item-list");
+	
+let items = [
+	"Item 1", "Item 2", "Item 3"
+];
+	
+ReactDOM.render(<ItemList header='Item List' items={items} />,
+	document.querySelector("[class='container']"));
