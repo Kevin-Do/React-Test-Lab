@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/training4developers/intro-to-react.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Kevin Do",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/training4developers/intro-to-react/issues"
   },
