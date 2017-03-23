@@ -8,6 +8,12 @@ const
 let items = [
 	"Item 1", "Item 2", "Item 3"
 ];
+
+var songs = [
+	{
+		url: "assets/stop.mp3"
+	}
+];
 	
 ReactDOM.render(<ItemList header='Item List' items={items} />,
 	document.querySelector("[class='container']"));
