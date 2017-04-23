@@ -24,7 +24,9 @@ const Button = (props) => {
 const Answer = (props) => {
 	return(
   	<div className = "col-5">
-    	<span>5</span>
+      {props.selectedNumbers.map((number, i) =>
+      	<span key = {i}>{number}</span>
+        )}
     </div>
   );
 };
@@ -32,11 +34,19 @@ const Answer = (props) => {
 const Numbers = (props) => {
 //const arrayOfNumbers = _.range(1,10);
 //lodash non inclusive
+const numberClassName = (number) => {
+	if (props.selectedNumbers.includes(number)){
+  	return 'selected';
+  
+  }
+}
 	return(
   	<div className = "card text-center">
     	<div>
       {Numbers.list.map((number,i) =>
-      	<span key = {i}>{number}</span>
+      	<span key = {i} className = {numberClassName(number)}> {number} 
+        			onClick = {() => props.selectNumber(number)}			
+        </span>
       )}
       </div>
     </div>
@@ -47,6 +57,14 @@ Numbers.list = _.range(1,10);
 //property of Numbers
 
 class Game extends React.Component{
+state = {
+	selectedNumbers:[2,4,6],
+};
+selectNumber = (selectedNumber) => {
+	this.setState(prevState => ({
+  	selectedNumbers: prevState.selectedNumbers.concat(selectedNumber)
+  });
+};
 	render()	{
   	return(
     	<div className = "container">
@@ -54,10 +72,11 @@ class Game extends React.Component{
         	<div className = "row">
             <Stars />
             <Button />
-            <Answer />
+            <Answer selectedNumbers = {this.state.selectedNumbers}/>
           </div>
           <br/>
-          <Numbers/>
+          <Numbers selectedNumbers = {this.state.selectedNumbers} 
+          				 selectNumber = {this.selectNumber}/>
       </div>
     );
   }
