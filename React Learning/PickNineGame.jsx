@@ -14,9 +14,31 @@ const Stars = (props) => {
   );
 };
 const Button = (props) => {
-	return(
+	let button;
+  switch (props.answerIsCorrect) {
+  	case true:
+    	button =
+        <button className = "btn btn-success">
+              <i className = "fa fa-check"> </i> 
+        </button>;
+      break;
+    case false:
+    	button =
+        <button className = "btn btn-danger">
+            <i className = "fa fa-times"> </i> 
+        </button>;
+      break;
+    default:
+    button =
+    	<button className = "btn" disabled = {props.selectedNumbers.length === 0}
+      				onClick = { props.checkAnswer}>
+              =
+      </button>;
+      break;
+  }
+  return(
   	<div className = "col-2">
-      <button className = "btn" disabled = {props.selectedNumbers.length === 0}>=</button>
+      {button}
     </div>
   );
 };
@@ -61,6 +83,7 @@ class Game extends React.Component{
 state = {
 	selectedNumbers:[],
   numberOfStars: 1+ Math.floor(Math.random()*9),
+  answerIsCorrect: null,
   
 };
 selectNumber = (selectedNumber) => {
@@ -76,16 +99,27 @@ unselectNumber = (selectedNumber) => {
   	selectedNumbers: prevState.selectedNumbers.filter(number => number !== selectedNumber)
   }));
 };
-
+checkAnswer = () => {
+this.setState(prevState => ({
+	answerIsCorrect: prevState.numberOfStars === 
+  	prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+	}));
+};
 	render()	{
   
-const { selectedNumbers, numberOfStars} = this.state;
+const { 
+			selectedNumbers, 
+			numberOfStars, 
+      answerIsCorrect
+      }  = this.state;
   	return(
     	<div className = "container">
       	<h3>Play Nine</h3>
         	<div className = "row">
             <Stars numberOfStars= {numberOfStars}/>
-            <Button selectedNumbers = {selectedNumbers}/>
+            <Button selectedNumbers = {selectedNumbers}
+            				checkAnswer = {this.checkAnswer}
+                    answerIsCorrect = {answerIsCorrect}/>
             <Answer selectedNumbers = {selectedNumbers}
             				unselectNumber = {this.unselectNumber}/>
           </div>
