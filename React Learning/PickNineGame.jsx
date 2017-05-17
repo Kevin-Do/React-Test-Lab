@@ -1,10 +1,5 @@
 const Stars = (props) => {
-	
-  // let stars = [];
-  // for (let i = 0; i < numberOfStars; i++){
-  // 	stars.push(<i key = {i} className = "fa fa-star"></i>);
-  // }
-  
+
 	return(
   	<div className = "col-5">
       {_.range(props.numberOfStars).map(i=>
@@ -18,7 +13,7 @@ const Button = (props) => {
   switch (props.answerIsCorrect) {
   	case true:
     	button =
-        <button className = "btn btn-success">
+        <button className = "btn btn-success" onClick = {props.acceptAnswer}>
               <i className = "fa fa-check"> </i> 
         </button>;
       break;
@@ -57,9 +52,11 @@ const Numbers = (props) => {
 //const arrayOfNumbers = _.range(1,10);
 //lodash non inclusive
 const numberClassName = (number) => {
-	if (props.selectedNumbers.includes(number)){
+	if (props.usedNumbers.includes(number)){
+  	return 'used';
+  }
+  if (props.selectedNumbers.includes(number)){
   	return 'selected';
-  
   }
 }
 	return(
@@ -82,6 +79,7 @@ Numbers.list = _.range(1,10);
 class Game extends React.Component{
 state = {
 	selectedNumbers:[],
+  usedNumbers: [],
   numberOfStars: 1+ Math.floor(Math.random()*9),
   answerIsCorrect: null,
   
@@ -91,11 +89,13 @@ selectNumber = (selectedNumber) => {
   	return;
   }
 	this.setState(prevState => ({
+  	answerIsCorrect: null,
   	selectedNumbers: prevState.selectedNumbers.concat(selectedNumber)
   }));
 };
 unselectNumber = (selectedNumber) => {
 	this.setState(prevState => ({
+  	answerIsCorrect: null,
   	selectedNumbers: prevState.selectedNumbers.filter(number => number !== selectedNumber)
   }));
 };
@@ -105,12 +105,21 @@ this.setState(prevState => ({
   	prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
 	}));
 };
+acceptAnswer = () => {
+this.setState(prevState => ({
+	usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
+  selectedNumbers: [],
+  answerIsCorrect: null,
+  numberOfStars: 1+ Math.floor(Math.random()*9)
+}));
+}
 	render()	{
   
 const { 
 			selectedNumbers, 
 			numberOfStars, 
-      answerIsCorrect
+      answerIsCorrect,
+      usedNumbers,
       }  = this.state;
   	return(
     	<div className = "container">
@@ -119,13 +128,15 @@ const {
             <Stars numberOfStars= {numberOfStars}/>
             <Button selectedNumbers = {selectedNumbers}
             				checkAnswer = {this.checkAnswer}
-                    answerIsCorrect = {answerIsCorrect}/>
+                    answerIsCorrect = {answerIsCorrect}
+                    acceptAnswer = {this.acceptAnswer}/>
             <Answer selectedNumbers = {selectedNumbers}
             				unselectNumber = {this.unselectNumber}/>
           </div>
           <br/>
           <Numbers selectedNumbers = {selectedNumbers} 
-          				 selectNumber = {this.selectNumber}/>
+          				 selectNumber = {this.selectNumber}
+                   usedNumbers = {usedNumbers}/>
       </div>
     );
   }
